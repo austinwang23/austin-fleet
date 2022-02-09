@@ -1,0 +1,23 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/austinwang23/austin-fleet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/austinwang23/austin-fleet/issues"
+  },
+  "homepage": "https://github.com/austinwang23/austin-fleet#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
