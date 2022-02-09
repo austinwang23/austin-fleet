@@ -12,18 +12,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 **Start backend**
    1. `cd austin-fleet`
    2. `npm install`
-   3. `node server.js`
-   Backend is now running on [http://localhost:5000](http://localhost:5000).
+   3. `node server.js`\
+Backend is now running on [http://localhost:5000](http://localhost:5000).
 
 **Start frontend**
    1. Open new terminal
    2. `cd austin-fleet/austin-fleet` _(Poor folder naming)_
    3. `npm install`
    4. `npm start`\
-   Runs the app in the development mode.\
-   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.\
-   The page will reload if you make edits.\
-   You will also see any lint errors in the console.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.\
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
 ## Known Errors
 
