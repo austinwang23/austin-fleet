@@ -1,10 +1,10 @@
-import React, { useState, ChangeEvent } from 'react';
-import './App.css';
-import { makeStyles } from '@mui/styles';
-import { ReactComponent as CloseIcon } from './assets/icons/x.svg';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useState, ChangeEvent } from "react";
+import "./App.css";
+import { makeStyles } from "@mui/styles";
+import { ReactComponent as CloseIcon } from "./assets/icons/x.svg";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 interface CompanyObject {
   name: string;
@@ -24,7 +24,7 @@ interface ModalProps {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#5218a4',
+      main: "#5218a4",
     },
   },
 });
@@ -78,7 +78,7 @@ const CompanyModal = (props: ModalProps) => {
               variant="contained"
               color="primary"
               style={{
-                marginLeft: '12px',
+                marginLeft: "12px",
               }}
               onClick={() =>
                 sendBackendAPI(company.name, websiteText, descriptionText)
@@ -95,43 +95,44 @@ const CompanyModal = (props: ModalProps) => {
 
 const useStyles = makeStyles({
   header: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    display: 'flex',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "space-between",
+    display: "flex",
+    flexDirection: "row",
   },
   buttonRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   input: {
-    border: 'none',
+    border: "none",
     flex: 1,
-    outline: '0',
+    outline: "0",
   },
   inputBar: {
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: '#5218a4',
-    borderRadius: '6px',
-    padding: '12px',
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "#5218a4",
+    borderRadius: "6px",
+    padding: "12px",
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: '18px',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "18px",
   },
   modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '60%',
-    backgroundColor: '#FFFFFF',
-    padding: '24px 36px',
-    borderRadius: '12px',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "60%",
+    backgroundColor: "#FFFFFF",
+    padding: "24px 36px",
+    borderRadius: "12px",
+    outline: "0",
   },
 });
 

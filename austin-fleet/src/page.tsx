@@ -1,9 +1,9 @@
-import React, { useState, ChangeEvent } from 'react';
-import './App.css';
-import { makeStyles } from '@mui/styles';
-import { ReactComponent as SearchIcon } from './assets/icons/search.svg';
-import CompanyModal from './modal';
-import axios from 'axios';
+import React, { useState, ChangeEvent } from "react";
+import "./App.css";
+import { makeStyles } from "@mui/styles";
+import { ReactComponent as SearchIcon } from "./assets/icons/search.svg";
+import CompanyModal from "./modal";
+import axios from "axios";
 
 interface CompanyObject {
   name: string;
@@ -20,7 +20,7 @@ const capitalizeFirstLetter = (string: string) => {
 // Axios POST config
 const config = {
   headers: {
-    'content-type': 'application/json',
+    "content-type": "application/json",
   },
 };
 
@@ -31,7 +31,7 @@ const Page = () => {
   const [originalJSON, setOriginalJSON] = useState<CompanyObject[]>([]);
 
   // Search bar text
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   // Selected company for modal
   const [currentCompany, setCurrentCompany] = useState<
@@ -64,33 +64,40 @@ const Page = () => {
     website: string,
     description: string
   ) => {
-    const toUpdate = {
-      name: name,
-      website: website,
-      description: description,
-    };
-    const response = await axios.post('/update_data', toUpdate, config);
-    if (response.status !== 200) {
-      throw Error('POST request failed with code ' + response.status);
-    }
-    const changed: CompanyObject[] = response.data.resp;
-    let updatedJSON: CompanyObject[] = originalJSON;
-    changed.forEach((company) => {
-      const isChanged = (oldCompany: CompanyObject) => {
-        return (
-          oldCompany.name === company.name &&
-          oldCompany.modeType === company.modeType
-        );
+    try {
+      const toUpdate = {
+        name: name,
+        website: website,
+        description: description,
       };
-      const index = updatedJSON.findIndex(isChanged);
-      updatedJSON[index] = company;
-    });
-    setOriginalJSON(updatedJSON);
+      const response = await axios.post("/update_data", toUpdate, config);
+      if (response.status !== 200) {
+        throw Error("POST request failed with code " + response.status);
+      }
+      const changed: CompanyObject[] = response.data.resp;
+      let updatedJSON: CompanyObject[] = originalJSON;
+      changed.forEach((company) => {
+        const isChanged = (oldCompany: CompanyObject) => {
+          return (
+            oldCompany.name === company.name &&
+            oldCompany.modeType === company.modeType
+          );
+        };
+        const index = updatedJSON.findIndex(isChanged);
+        updatedJSON[index] = company;
+      });
+      setOriginalJSON(updatedJSON);
+      alert(`Successfully updated information for ${name}`);
+      handleClose();
+    } catch (e) {
+      alert(`Successfully updated information for ${name}.\n${e}`);
+      handleClose();
+    }
   };
 
   // Getting company info from backend using fetch
   const callBackendAPI = async () => {
-    const response = await fetch('/get_data');
+    const response = await fetch("/get_data");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -112,7 +119,7 @@ const Page = () => {
           ...oldCompany,
           modeType:
             oldCompany.modeType +
-            ', ' +
+            ", " +
             capitalizeFirstLetter(company.modeType),
         };
         map.set(company.name, filteredCompany);
@@ -154,6 +161,7 @@ const Page = () => {
         />
         <SearchIcon />
       </div>
+      {data.length === 0 && <h4>Unable to get information</h4>}
       <div className={classes.companiesWrapper}>
         {data.map((company) => {
           if (
@@ -186,57 +194,57 @@ const Page = () => {
 
 const useStyles = makeStyles({
   companiesWrapper: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3,1fr)',
-    gap: '10px',
-    marginTop: '24px',
+    display: "grid",
+    gridTemplateColumns: "repeat(3,1fr)",
+    gap: "10px",
+    marginTop: "24px",
   },
   companyBox: {
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: '#F5F5F5',
-    borderRadius: '12px',
-    padding: '12px',
-    '&:hover': {
-      backgroundColor: '#F5F5F5',
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "#F5F5F5",
+    borderRadius: "12px",
+    padding: "12px",
+    "&:hover": {
+      backgroundColor: "#F5F5F5",
     },
   },
   companyLogo: {
-    height: '48px',
-    width: '48px',
-    borderRadius: '6px',
+    height: "48px",
+    width: "48px",
+    borderRadius: "6px",
   },
   h4: {
-    marginBottom: '8px',
-    marginTop: '12px',
+    marginBottom: "8px",
+    marginTop: "12px",
   },
   p: {
-    margin: '0',
-    wordWrap: 'break-word',
-    overflowWrap: 'break-word',
+    margin: "0",
+    wordWrap: "break-word",
+    overflowWrap: "break-word",
   },
   input: {
-    border: 'none',
-    backgroundColor: '#EEEEEE',
+    border: "none",
+    backgroundColor: "#EEEEEE",
     flex: 1,
-    outline: '0',
+    outline: "0",
   },
   searchBar: {
-    backgroundColor: '#EEEEEE',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: '#DCDCDC',
-    borderRadius: '6px',
-    padding: '12px',
+    backgroundColor: "#EEEEEE",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "#DCDCDC",
+    borderRadius: "6px",
+    padding: "12px",
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   root: {
-    background: '#FFF',
-    padding: '0 30px',
+    background: "#FFF",
+    padding: "0 30px",
   },
 });
 
