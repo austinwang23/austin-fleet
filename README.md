@@ -6,33 +6,29 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Instructions to run the project
 
-1. Clone the repository\
+**Clone the repository**\
    `git clone https://github.com/austinwang23/austin-fleet.git`
 
-2. Install necessary packages\
-   `cd austin-fleet`\
-   `npm install`\
-   _Not duplicated. Just poor folder naming._\
-   `cd austin-fleet`\
-   `npm install`
-
-3. Start backend\
-   `cd ..`\
-   `node server.js`\
+**Start backend**
+   1. `cd austin-fleet`
+   2. `npm install`
+   3. `node server.js`
    Backend is now running on [http://localhost:5000](http://localhost:5000).
 
-4. Start frontend\
-   `cd austin-fleet`\
-   `npm start`\
+**Start frontend**
+   1. Open new terminal
+   2. `cd austin-fleet/austin-fleet` _(Poor folder naming)_
+   3. `npm install`
+   4. `npm start`\
    Runs the app in the development mode.\
    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.\
    The page will reload if you make edits.\
-    You will also see any lint errors in the console.
+   You will also see any lint errors in the console.
 
 ## Known Errors
 
 - No tests
-- Styling a bit inconsistent
+- Styling not done in seperate `.css` file
 
 ## Learn More
 
