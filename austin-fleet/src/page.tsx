@@ -147,19 +147,26 @@ const Page = () => {
       <div className={classes.companiesWrapper}>
         {data.map((company) => {
           return (
-            <div
-              className={classes.companyBox}
-              onClick={() => handleOpen(company)}
-              key={company.name}
-            >
-              <img
-                className={classes.companyLogo}
-                src={company.icon}
-                alt={`${company.name}'s Logo`}
-              />
-              <h4 className={classes.h4}>{company.name}</h4>
-              <p className={classes.p}>{company.modeType}</p>
-            </div>
+            <>
+              {(search.length === 0 ||
+                company.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+                company.modeType.toLowerCase().indexOf(search.toLowerCase()) >
+                  -1) && (
+                <div
+                  className={classes.companyBox}
+                  onClick={() => handleOpen(company)}
+                  key={company.name}
+                >
+                  <img
+                    className={classes.companyLogo}
+                    src={company.icon}
+                    alt={`${company.name}'s Logo`}
+                  />
+                  <h4 className={classes.h4}>{company.name}</h4>
+                  <p className={classes.p}>{company.modeType}</p>
+                </div>
+              )}
+            </>
           );
         })}
       </div>
