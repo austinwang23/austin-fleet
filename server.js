@@ -1,22 +1,26 @@
+// Importing data.json
 const data = require("./data.json");
+
+// Importing fs to write to file
 const fs = require("fs");
-console.log(typeof data); // output 'testing'
 
-const express = require("express"); //Line 1
-const app = express(); //Line 2
+// Using express server
+const express = require("express");
+const app = express();
 app.use(express.json());
-const port = process.env.PORT || 5000; //Line 3
+const port = process.env.PORT || 5000;
 
-// This displays message that the server running and listening to specified port
-app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
-app.get("/express_backend", (req, res) => {
-  //Line 9
-  res.send({ data: data }); //Line 10
-}); //Line 11
+// GET route for data
+app.get("/get_data", (req, res) => {
+  console.log("GET data");
+  res.send({ data: data });
+});
 
-app.post("/update", function (req, res) {
+// POST route for updating data
+app.post("/update_data", function (req, res) {
+  console.log("POST data");
   const resp = [];
   const companies = data;
   const updatedJSON = companies.map((company) => {
@@ -27,10 +31,6 @@ app.post("/update", function (req, res) {
     }
     return company;
   });
-  console.log("hi colin");
-  console.log(req.body);
-  console.log(resp);
-
   let toWrite = JSON.stringify(updatedJSON);
   fs.writeFile("data.json", toWrite, (err) => {
     if (err) throw err;
