@@ -32,10 +32,14 @@ const theme = createTheme({
 const CompanyModal = (props: ModalProps) => {
   const { open, handleClose, company, sendBackendAPI } = props;
   const classes = useStyles();
+
+  // Website text input
   const [websiteText, setWebsiteText] = useState(company.website);
   const handleChangeWebsite = (e: ChangeEvent<HTMLInputElement>) => {
     setWebsiteText(e.target.value);
   };
+
+  // Description text input
   const [descriptionText, setDescriptionText] = useState(company.description);
   const handleChangeDescription = (e: ChangeEvent<HTMLInputElement>) => {
     setDescriptionText(e.target.value);

@@ -17,6 +17,7 @@ const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 };
 
+// Axios POST config
 const config = {
   headers: {
     "content-type": "application/json",
@@ -25,15 +26,25 @@ const config = {
 
 const Page = () => {
   const classes = useStyles();
+
+  // Untouched JSON from backend
   const [originalJSON, setOriginalJSON] = useState<CompanyObject[]>([]);
-  //   const [data, setData] = useState<CompanyObject[]>([]);
-  let data: CompanyObject[] = [];
+
+  // Search bar text
   const [search, setSearch] = useState("");
+
+  // Selected company for modal
   const [currentCompany, setCurrentCompany] = useState<
     CompanyObject | undefined
   >(undefined);
 
+  // State for modal
   const [open, setOpen] = React.useState(false);
+
+  // Company data to be displayed in a grid
+  let data: CompanyObject[] = [];
+
+  // Closing and Opening Modal
   const handleOpen = (company: CompanyObject) => {
     setCurrentCompany(company);
     setOpen(true);
@@ -47,6 +58,7 @@ const Page = () => {
     setSearch(e.target.value);
   };
 
+  // Updating company info in backend using POST
   const sendBackendAPI = async (
     name: string,
     website: string,
@@ -57,8 +69,7 @@ const Page = () => {
       website: website,
       description: description,
     };
-    console.log(toUpdate);
-    const response = await axios.post("/update", toUpdate, config);
+    const response = await axios.post("/update_data", toUpdate, config);
     if (response.status !== 200) {
       throw Error("POST request failed with code " + response.status);
     }
@@ -77,9 +88,9 @@ const Page = () => {
     setOriginalJSON(updatedJSON);
   };
 
-  // fetching the GET route from the Express server which matches the GET route from server.js
+  // Getting company info from backend using fetch
   const callBackendAPI = async () => {
-    const response = await fetch("/express_backend");
+    const response = await fetch("/get_data");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -89,6 +100,7 @@ const Page = () => {
     setOriginalJSON(body.data);
   };
 
+  // Filter through company data
   if (originalJSON) {
     const array: CompanyObject[] = originalJSON;
     const map = new Map();
@@ -109,16 +121,14 @@ const Page = () => {
           ...company,
           modeType: capitalizeFirstLetter(company.modeType),
         };
-        console.log(filteredCompany);
         map.set(company.name, filteredCompany);
       }
     });
-    console.log(map.size);
     var mapArray = Array.from(map.values());
-    console.log(mapArray);
     data = mapArray;
   }
 
+  // Only call backend on first load
   if (data.length === 0) {
     callBackendAPI();
   }
@@ -146,28 +156,28 @@ const Page = () => {
       </div>
       <div className={classes.companiesWrapper}>
         {data.map((company) => {
-          return (
-            <>
-              {(search.length === 0 ||
-                company.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
-                company.modeType.toLowerCase().indexOf(search.toLowerCase()) >
-                  -1) && (
-                <div
-                  className={classes.companyBox}
-                  onClick={() => handleOpen(company)}
-                  key={company.name}
-                >
-                  <img
-                    className={classes.companyLogo}
-                    src={company.icon}
-                    alt={`${company.name}'s Logo`}
-                  />
-                  <h4 className={classes.h4}>{company.name}</h4>
-                  <p className={classes.p}>{company.modeType}</p>
-                </div>
-              )}
-            </>
-          );
+          if (
+            search.length === 0 ||
+            company.name.toLowerCase().includes(search.toLowerCase()) ||
+            company.modeType.toLowerCase().includes(search.toLowerCase())
+          ) {
+            return (
+              <div
+                className={classes.companyBox}
+                onClick={() => handleOpen(company)}
+                key={company.name}
+              >
+                <img
+                  className={classes.companyLogo}
+                  src={company.icon}
+                  alt={`${company.name}'s Logo`}
+                />
+                <h4 className={classes.h4}>{company.name}</h4>
+                <p className={classes.p}>{company.modeType}</p>
+              </div>
+            );
+          }
+          return null;
         })}
       </div>
     </div>
